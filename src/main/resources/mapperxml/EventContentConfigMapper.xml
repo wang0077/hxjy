@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.EventContentConfigMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.EventContentConfig">
+		<id column="ID" property="id" />
+		<result column="TYPE" property="type" />
+		<result column="CONTENT" property="content" />
+		<result column="STATUS" property="status" />
+		<result column="SORT" property="sort" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+	</resultMap>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="ListBaseResultMap" extends="BaseResultMap" type="com.lcy.autogenerator.entity.EventContentConfig2">
+		<result column="FINISH_TIME" property="finishTime" />
+		<result column="TODO_CREATE_TIME" property="todoCreateTime" />
+	</resultMap>
+
+	<select id="listOperation" parameterType="java.util.Map"  resultMap="BaseResultMap">
+		SELECT s.*
+		<include refid="listOperationSql"></include>
+		ORDER BY
+		s.SORT ASC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="countListOperation" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		<include refid="listOperationSql"></include>
+	</select>
+
+	<sql id="listOperationSql">
+		FROM event_content_config s where s.IS_DELETED = 0
+
+		<if test="beginTime != null">
+			AND s.`CREATE_TIME` >= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND s.`CREATE_TIME` &lt; #{endTime}
+		</if>
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+		<if test="status != null">
+			AND s.`STATUS` = #{status}
+		</if>
+		<if test="contentKeyword != null">
+			AND s.`CONTENT` LIKE concat('%', #{contentKeyword}, '%')
+		</if>
+	</sql>
+
+	<select id="getMaxSort" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		MAX(SORT)
+		FROM
+		event_content_config s
+		where s.IS_DELETED = 0
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+	</select>
+
+	<select id="getMinSort" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		MIN(SORT)
+		FROM
+		event_content_config s
+		where s.IS_DELETED = 0
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+	</select>
+
+	<select id="listOne" parameterType="java.util.Map"  resultMap="BaseResultMap">
+		SELECT s.*
+		FROM event_content_config s where s.IS_DELETED = 0
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+		<if test="status != null">
+			AND s.`STATUS` = #{status}
+		</if>
+		ORDER BY
+		s.SORT ASC
+		LIMIT #{offset}, 1
+	</select>
+
+	<select id="list" parameterType="java.util.Map"  resultMap="ListBaseResultMap">
+		SELECT s.*,c.ID,c.CREATE_TIME AS FINISH_TIME
+		FROM event_content_config s left join
+		(
+		SELECT
+		*
+		FROM
+		clock_in_record
+		WHERE
+		CREATE_TIME IN (
+		SELECT
+		substring_index(
+		group_concat(
+		CREATE_TIME
+		ORDER BY
+		CREATE_TIME DESC SEPARATOR ','
+		),
+		",",
+		1
+		)
+		FROM
+		clock_in_record
+		GROUP BY
+		`USER_ID`,
+		RESOURCE_ID
+		)
+		AND USER_ID = #{userId}
+		AND type = #{clockIntype}
+		)
+		c on s.ID = c.RESOURCE_ID AND c.USER_ID = #{userId} where s.IS_DELETED = 0
+
+		<if test="finished != null and finished">
+			AND c.ID is NOT NULL
+		</if>
+
+		<if test="finished != null and !finished">
+			AND c.ID is NULL
+		</if>
+
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+		<if test="status != null">
+			AND s.`STATUS` = #{status}
+		</if>
+
+		<if test="lastDate != null">
+			AND c.CREATE_TIME &lt; #{lastDate}
+		</if>
+		ORDER BY
+		c.CREATE_TIME DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="listTodo" parameterType="java.util.Map"  resultMap="ListBaseResultMap">
+		SELECT s.*,c.CREATE_TIME AS TODO_CREATE_TIME
+		FROM event_todo c left join event_content_config s on s.ID = c.RESOURCE_ID AND c.USER_ID = #{userId} where s.IS_DELETED = 0
+
+		<if test="type != null">
+			AND s.`TYPE` = #{type}
+		</if>
+		<if test="status != null">
+			AND s.`STATUS` = #{status}
+		</if>
+
+		<if test="lastDate != null">
+			AND c.CREATE_TIME > #{lastDate}
+		</if>
+		ORDER BY
+		c.CREATE_TIME ASC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+</mapper>

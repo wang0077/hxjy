@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.SatisfactionSurveyAnswerRecordMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.SatisfactionSurveyAnswerRecord">
+		<id column="ID" property="id" />
+		<result column="USER_ID" property="userId" />
+		<result column="ANSWER_RESULT" property="answerResult" />
+		<result column="ANSWER_TIME" property="answerTime" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+	</resultMap>
+
+	<select id="listOperation" parameterType="java.util.Map"  resultMap="BaseResultMap">
+		SELECT s.*
+		<include refid="listOperationSql"></include>
+		ORDER BY
+		s.ANSWER_TIME DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="countListOperation" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		<include refid="listOperationSql"></include>
+	</select>
+
+	<sql id="listOperationSql">
+		FROM satisfaction_survey_answer_record s left join user c on s.USER_ID = c.ID where s.IS_DELETED = 0
+
+		<if test="beginTime != null">
+			AND s.`ANSWER_TIME` >= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND s.`ANSWER_TIME` &lt; #{endTime}
+		</if>
+		<if test="nickNameKeyword != null">
+			AND c.`NICKNAME` LIKE concat('%', #{nickNameKeyword}, '%')
+		</if>
+		<if test="nameKeyword != null">
+			AND c.`NAME` LIKE concat('%', #{nameKeyword}, '%')
+		</if>
+	</sql>
+
+</mapper>

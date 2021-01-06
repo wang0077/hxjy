@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.OperatorLoginLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.OperatorLoginLog">
+		<id column="ID" property="id" />
+		<result column="OPERATOR_ID" property="operatorId" />
+		<result column="IP" property="ip" />
+		<result column="LOGIN_TIME" property="loginTime" />
+		<result column="LAST_LOGIN_TIME" property="lastLoginTime" />
+		<result column="CLIENT_TYPE" property="clientType" />
+		<result column="LOGIN_NAME" property="loginName" />
+		<result column="PASSWORD" property="password" />
+		<result column="IS_PASS" property="isPass" />
+		<result column="CLIENT_VERSION" property="clientVersion" />
+		<result column="ERROR_MESSAGE" property="errorMessage" />
+		<result column="APP_ID" property="appId" />
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.MindfulnessMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Mindfulness">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="AUTHOR" property="author" />
+		<result column="REMARK" property="remark" />
+		<result column="TYPE" property="type" />
+		<result column="COVER_PIC_ID" property="coverPicId" />
+		<result column="BG_PIC_ID" property="bgPicId" />
+		<result column="VIDEO_ID" property="videoId" />
+		<result column="TIME" property="time" />
+		<result column="SORT" property="sort" />
+		<result column="STATUS" property="status" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+	</resultMap>
+
+	<select id="listOperation" parameterType="java.util.Map"  resultMap="BaseResultMap">
+		SELECT s.*
+		<include refid="listOperationSql"></include>
+		ORDER BY
+		s.SORT ASC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="countListOperation" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(*)
+		<include refid="listOperationSql"></include>
+	</select>
+
+	<sql id="listOperationSql">
+		FROM mindfulness s where s.IS_DELETED = 0
+
+		<if test="beginTime != null">
+			AND s.`CREATE_TIME` >= #{beginTime}
+		</if>
+		<if test="endTime != null">
+			AND s.`CREATE_TIME` &lt; #{endTime}
+		</if>
+		<if test="status != null">
+			AND s.`STATUS` = #{status}
+		</if>
+		<if test="nameKeyword != null">
+			AND s.`NAME` LIKE concat('%', #{nameKeyword}, '%')
+		</if>
+	</sql>
+
+	<select id="getMaxSort" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		MAX(SORT)
+		FROM
+		mindfulness s
+		where s.IS_DELETED = 0
+	</select>
+
+	<select id="getMinSort" parameterType="java.util.Map" resultType="java.lang.Long">
+		SELECT
+		MIN(SORT)
+		FROM
+		mindfulness s
+		where s.IS_DELETED = 0
+	</select>
+
+</mapper>

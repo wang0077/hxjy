@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.MenuMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Menu">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="NAME_EN" property="nameEn" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="SORT" property="sort" />
+		<result column="IS_DISTRIBUTABLE" property="isDistributable" />
+		<result column="IS_INTEGRATION" property="isIntegration" />
+		<result column="IS_MAIN" property="isMain" />
+		<result column="URL" property="url" />
+		<result column="FILTER_URL" property="filterUrl" />
+		<result column="APP_ID" property="appId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+	</resultMap>
+	
+	<select id="maxCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT MAX(SORT) FROM menu WHERE PARENT_ID = #{parentId}
+	</select>
+	
+	<select id="listOperatorTreeMenu" parameterType="java.util.Map" resultType="com.lcy.dto.manage.TreeMenu">
+		SELECT t.ID id,t.`NAME` name,t.NAME_EN nameEn,t.PARENT_ID parentId,t.SORT sort,t.IS_DISTRIBUTABLE isDistributable,
+		t.IS_INTEGRATION isIntegration,t.url,
+	    (SELECT count(0) FROM menu t1
+	    WHERE t1.ID in (SELECT DISTINCT MENU_ID FROM role_menu_relation r1 WHERE r1.ROLE_ID in 
+  		<foreach item="item" index="index" collection="operatorRoleIds" open="(" separator="," close=")">
+			${item}
+		</foreach>
+	    AND r1.IS_DELETED = 0)
+        AND t1.PARENT_ID=t.ID AND t1.IS_DELETED=0 
+        
+        <if test="filterDistributable == true">
+        	AND t1.IS_DISTRIBUTABLE=1
+        </if>
+        
+        ) subCount FROM menu t WHERE 1=1
+        AND t.ID in (SELECT DISTINCT MENU_ID FROM role_menu_relation r WHERE r.ROLE_ID in 
+        <foreach item="item" index="index" collection="operatorRoleIds" open="(" separator="," close=")">
+			${item}
+		</foreach>
+        AND r.IS_DELETED = 0)
+        AND t.PARENT_ID = #{parentMenuId} and t.IS_DELETED=0 
+        
+        <if test="filterDistributable == true">
+        	AND t.IS_DISTRIBUTABLE=1
+        </if>
+        
+         ORDER BY SORT ASC
+	</select>
+	
+	<select id="listRoleAuthMenu" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT MENU_ID FROM role_menu_relation WHERE  IS_DELETED = 0
+		AND ROLE_ID = #{roleId}
+		AND MENU_ID IN (SELECT m.ID FROM menu m WHERE m.PARENT_ID = #{parentMenuId})
+	</select>
+	
+	<select id="countRoleUrl" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT count(0) FROM menu t
+		WHERE t.ID in (SELECT DISTINCT MENU_ID FROM role_menu_relation r WHERE r.ROLE_ID in 
+		<foreach item="item" index="index" collection="operatorRoleIds" open="(" separator="," close=")">
+			${item}
+		</foreach>
+		 AND r.IS_DELETED = 0) and t.IS_DELETED=0
+		AND FIND_IN_SET(#{url}, t.FILTER_URL)
+	</select>
+	
+	<select id="listAuthMenuFilterUrl" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT t.FILTER_URL FROM menu t WHERE 1=1
+		 AND t.ID in (SELECT DISTINCT MENU_ID FROM role_menu_relation r WHERE r.ROLE_ID in (#{operatorRoleIds}) AND r.IS_DELETED = 0)
+		  AND t.IS_DELETED=0 ORDER BY SORT ASC
+	</select>
+
+</mapper>

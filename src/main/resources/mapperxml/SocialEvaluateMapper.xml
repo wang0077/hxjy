@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.SocialEvaluateMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.SocialEvaluate">
+		<id column="ID" property="id" />
+		<result column="CONTENT" property="content" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="RESOURCE_ID" property="resourceId" />
+		<result column="RESOURCE_TYPE" property="resourceType" />
+		<result column="TO_USER_ID" property="toUserId" />
+		<result column="USER_ID" property="userId" />
+		<result column="REPLY_CONTENT" property="replyContent" />
+		<result column="ATTR2" property="attr2" />
+		<result column="ATTR1" property="attr1" />
+		<result column="DELETABLE" property="deletable" />
+		<result column="REPLY_TIME" property="replyTime" />
+		<result column="ATTR3" property="attr3" />
+		<result column="TRADE_ID" property="tradeId" />
+		<result column="RESOURCE_TITLE" property="resourceTitle" />
+		<result column="USER_TYPE" property="userType" />
+		<result column="TO_USER_TYPE" property="toUserType" />
+		<result column="VIRTUAL" property="virtual" />
+		<result column="APP_ID" property="appId" />
+		<result column="RESOURCE_USER_ID" property="resourceUserId" />
+		<result column="PIC_URL" property="picUrl" />
+	</resultMap>
+
+</mapper>

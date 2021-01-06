@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.RoleOperatorRelationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.RoleOperatorRelation">
+		<id column="ID" property="id" />
+		<result column="ROLE_ID" property="roleId" />
+		<result column="OPERATOR_ID" property="operatorId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+	</resultMap>
+	
+	<select id="listRelationId" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT ID FROM role_operator_relation WHERE IS_DELETED = 0
+		<if test="roleId !=null and roleId != ''">  
+		    AND ROLE_ID = #{roleId}  
+		</if>  
+		<if test="operatorId !=null and operatorId != ''">  
+		    AND OPERATOR_ID = #{operatorId}  
+		</if>  
+	</select>
+	
+	<select id="listRoleId" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT ROLE_ID FROM role_operator_relation WHERE 
+		OPERATOR_ID = #{operatorId} 
+		AND IS_DELETED = 0
+	</select>
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.UserThirdInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.UserThirdInfo">
+		<id column="ID" property="id" />
+		<result column="THIRD_TYPE" property="thirdType" />
+		<result column="THIRD_NAME" property="thirdName" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="OPENID" property="openid" />
+		<result column="SEX" property="sex" />
+		<result column="PROVINCE" property="province" />
+		<result column="CITY" property="city" />
+		<result column="COUNTRY" property="country" />
+		<result column="HEADIMGURL" property="headimgurl" />
+		<result column="PRIVILEGE" property="privilege" />
+		<result column="UNIONID" property="unionid" />
+		<result column="ACCESS_TOKEN" property="accessToken" />
+		<result column="ACCESS_TOKEN_CREATE_TIME" property="accessTokenCreateTime" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="ACCESS_TOKEN_REFRESH_TIME" property="accessTokenRefreshTime" />
+		<result column="USER_ID" property="userId" />
+		<result column="APP_ID" property="appId" />
+		<result column="MINI_ID" property="miniId" />
+	</resultMap>
+
+</mapper>

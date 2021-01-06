@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.AreaConfigMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.AreaConfig">
+		<id column="REGION_INFO_Id" property="regionInfoId" />
+		<result column="NAME" property="name" />
+		<result column="MERGER_NAME" property="mergerName" />
+		<result column="SHORT_NAME" property="shortName" />
+		<result column="MERGER_SHORT_NAME" property="mergerShortName" />
+		<result column="LEVEL_TYPE" property="levelType" />
+		<result column="CITY_CODE" property="cityCode" />
+		<result column="ZIP_CODE" property="zipCode" />
+		<result column="PINYIN" property="pinyin" />
+		<result column="JIANPIN" property="jianpin" />
+		<result column="FIRST_CHAR" property="firstChar" />
+		<result column="LNG" property="lng" />
+		<result column="LAT" property="lat" />
+		<result column="REMARKS" property="remarks" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="STATUS" property="status" />
+		<result column="SORT" property="sort" />
+		<result column="WEATHER_CODE" property="weatherCode" />
+	</resultMap>
+
+</mapper>

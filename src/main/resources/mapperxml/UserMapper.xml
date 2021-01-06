@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.UserMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.User">
+		<id column="ID" property="id" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="NAME" property="name" />
+		<result column="PHOTO_ID" property="photoId" />
+		<result column="PHONE" property="phone" />
+		<result column="TELEPHONE" property="telephone" />
+		<result column="EMAIL" property="email" />
+		<result column="IS_PHONE_AUTHENTICATED" property="isPhoneAuthenticated" />
+		<result column="IS_EMAIL_AUTHENTICATED" property="isEmailAuthenticated" />
+		<result column="GENDER" property="gender" />
+		<result column="REGISTER_IP" property="registerIp" />
+		<result column="REGISTER_TIME" property="registerTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="AUTH_STATUS" property="authStatus" />
+		<result column="RESIDENT_PROVINCE" property="residentProvince" />
+		<result column="RESIDENT_CITY" property="residentCity" />
+		<result column="RESIDENT_COUNTY" property="residentCounty" />
+		<result column="LONGITUDE" property="longitude" />
+		<result column="LATITUDE" property="latitude" />
+		<result column="IS_IMPORT_USER_ACTIVED" property="isImportUserActived" />
+		<result column="CREATE_USER_TYPE" property="createUserType" />
+		<result column="CREATE_USER_ID" property="createUserId" />
+		<result column="ACTIVED_IP" property="activedIp" />
+		<result column="ACTIVED_TIME" property="activedTime" />
+		<result column="IS_ACTIVED" property="isActived" />
+		<result column="BINDING_EMAIL" property="bindingEmail" />
+		<result column="REGISTER_PROVINCE" property="registerProvince" />
+		<result column="REGISTER_CITY" property="registerCity" />
+		<result column="REGISTER_COUNTY" property="registerCounty" />
+		<result column="REGISTER_AREA_CODE" property="registerAreaCode" />
+		<result column="REGISTER_SITE_ID" property="registerSiteId" />
+		<result column="REGISTER_SITE_NAME" property="registerSiteName" />
+		<result column="PASSWORD" property="password" />
+		<result column="REGISTER_THIRD_SOURCE" property="registerThirdSource" />
+		<result column="IMPORT_SOURCE" property="importSource" />
+		<result column="REGISTER_SYSTEM_ID" property="registerSystemId" />
+		<result column="AUTH_TYPE" property="authType" />
+		<result column="REGISTER_MAC" property="registerMac" />
+		<result column="LOGIN_ERROR_TIMES" property="loginErrorTimes" />
+		<result column="CREATE_CLIENT" property="createClient" />
+		<result column="ACCOUNT_STATUS" property="accountStatus" />
+		<result column="IS_AGENT" property="isAgent" />
+		<result column="CUR_AUTH_ROLE" property="curAuthRole" />
+		<result column="LABEL" property="label" />
+		<result column="ANSWER_COUNT" property="answerCount" />
+		<result column="BUY_COUNT" property="buyCount" />
+		<result column="CONSUME_MONEY" property="consumeMoney" />
+		<result column="BG_PHOTO_ID" property="bgPhotoId" />
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="WEIGHT" property="weight" />
+		<result column="HEIGHT" property="height" />
+		<result column="MARITAL" property="marital" />
+		<result column="EDUCATION" property="education" />
+		<result column="JOB" property="job" />
+		<result column="BMI" property="bmi" />
+		<result column="ED_ID" property="edId" />
+		<result column="CLOCK_IN_COUNT" property="clockInCount" />
+		<result column="PRAISE_COUNT" property="praiseCount" />
+		<result column="LAST_SCALE_TIME" property="lastScaleTime" />
+		<result column="STEP" property="step" />
+		<result column="IS_SCALE_SECOND" property="isScaleSecond" />
+		<result column="IS_SECOND_DONE" property="isSecondDone" />
+		<result column="DEPRECATED_PHONE" property="deprecatedPhone" />
+		<result column="SCALE_PERIOD" property="scalePeriod" />
+		<result column="SCALE_PERIOD_REMAIN" property="scalePeriodRemain" />
+		<result column="IS_PERIOD_DONE" property="isPeriodDone" />
+		<result column="Q1" property="Q1" />
+		<result column="Q2" property="Q2" />
+		<result column="Q2_TIMES" property="Q2Times" />
+		<result column="Q3" property="Q3" />
+		<result column="Q4" property="Q4" />
+	</resultMap>
+	
+	<select id="getId">
+		select id from user where phone=#{phone}
+	</select>
+
+	<select id="getMaxPhone" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT
+		MAX(PHONE)
+		FROM
+		user
+		where PHONE like '1990%'
+	</select>
+
+	<select id="getMaxEDID" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT MAX(ED_ID) maxEdId
+		FROM user where ED_ID like 'ED%'
+	</select>
+
+	<select id="getMaxHCID" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT MAX(ED_ID) maxEdId
+		FROM user where ED_ID like 'HC%'
+	</select>
+    
+
+</mapper>

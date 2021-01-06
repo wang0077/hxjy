@@ -1,0 +1,157 @@
+package com.lcy.bll.social;
+
+import com.lcy.controller.common.ServiceException;
+import com.lcy.dto.social.SocialEvaluateDTO;
+import com.lcy.dto.social.SocialEvaluateQuotaDTO;
+import com.lcy.params.common.IDAppPageParams;
+import com.lcy.params.common.IDParams;
+import com.lcy.params.social.EvaluateParams;
+
+import java.util.List;
+
+/**
+ * 评价接口
+ * @author cjianyan@linewell.com
+ * @since 2017-09-08
+ *
+ */
+public interface ISocialEvaluateBLL {
+	
+	/**
+	 * 获取某个资源的统计
+	 * @param params
+	 * @return
+	 * @throws ServiceException
+	 */
+	public SocialEvaluateQuotaDTO getResourceIdEvaluateQuotaDTO(EvaluateParams params) throws ServiceException;
+	
+	
+	/**
+	 * 获取某种资源所属的用户的统计
+	 * @param params
+	 * @return
+	 * @throws ServiceException
+	 */
+	public SocialEvaluateQuotaDTO getResourceTypeUserEvaluateQuotaDTO(EvaluateParams params) throws ServiceException;
+	
+	/**
+	 * 获取普通用户的统计（资源用户对她的评价）
+	 * @param params
+	 * @return
+	 * @throws ServiceException
+	 */
+	public SocialEvaluateQuotaDTO getCommonUserEvaluateQuotaDTO(EvaluateParams params) throws ServiceException;
+
+	/**
+	 * 评价
+	 * @param params
+	 * @return
+	 * @throws ServiceException
+	 */
+	public SocialEvaluateDTO evaluate(EvaluateParams params) throws ServiceException;
+	
+	/**
+	 * 删除评价
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public SocialEvaluateDTO delete(IDParams idParams)throws ServiceException;
+	
+	/**
+	 * 获取用户被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserAllEvaluatedList(IDAppPageParams pageParams)throws ServiceException;
+	
+	/**
+	 * 获取用户被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Long getUserAllEvaluatedCount(IDParams idParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某资源被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserResourceIdAllEvaluatedList(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户除某资源外的资源被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserOtherResourceIdsAllEvaluatedList(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户除某资源外的资源被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Long getUserOtherResourceIdsAllEvaluatedCount(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某资源被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Long getUserResourceIdAllEvaluatedCount(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某资源类型被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserResourceTypeAllEvaluatedList(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某资源类型被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Long getUserResourceTypeAllEvaluatedCount(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户评价别人的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserAllEvaluateOtherUserList(IDAppPageParams pageParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某个资源被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public Long getUserResourceIdAllEvaluateOtherUserList(EvaluateParams evaluateParams)throws ServiceException;
+	
+	
+	/**
+	 * 获取用户某个资源类型被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserResourceTypeAllEvaluateOtherUserList(EvaluateParams evaluateParams)throws ServiceException;
+	
+	/**
+	 * 获取用户某交易号被评价的所有评价列表
+	 * @param idParams
+	 * @return
+	 * @throws ServiceException
+	 */
+	public List<SocialEvaluateDTO> getUserTradeIdAllEvaluatedList(EvaluateParams evaluateParams)throws ServiceException;
+}

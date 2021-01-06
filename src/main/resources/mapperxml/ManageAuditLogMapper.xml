@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.ManageAuditLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.ManageAuditLog">
+		<id column="ID" property="id" />
+		<result column="REMARK" property="remark" />
+		<result column="OS" property="os" />
+		<result column="IP" property="ip" />
+		<result column="MAC" property="mac" />
+		<result column="RESOURCE_TITLE" property="resourceTitle" />
+		<result column="RES_BELONG_USER_ID" property="resBelongUserId" />
+		<result column="RES_BELONG_USER_NAME" property="resBelongUserName" />
+		<result column="AUDIT_RESULT" property="auditResult" />
+		<result column="OPER_RESULT" property="operResult" />
+		<result column="OPER_TIME" property="operTime" />
+		<result column="OPER_USER_ID" property="operUserId" />
+		<result column="OPER_USER_NAME" property="operUserName" />
+		<result column="OPER_USER_PHONE" property="operUserPhone" />
+		<result column="RESOURCE_ID" property="resourceId" />
+		<result column="RESOURCE_TYPE" property="resourceType" />
+		<result column="APP_ID" property="appId" />
+		<result column="SITE_ID" property="siteId" />
+	</resultMap>
+
+</mapper>

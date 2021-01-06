@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Article">
+        <id column="ID" property="id"/>
+        <result column="CREATE_TIME" property="createTime"/>
+        <result column="PUBLISH_TIME" property="publishTime"/>
+        <result column="IS_DELETED" property="isDeleted"/>
+        <result column="CATEGORY_ID" property="categoryId"/>
+        <result column="CATEGORY_SEQ_NUM" property="categorySeqNum"/>
+        <result column="COVER_PIC_ID" property="coverPicId"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENT" property="content"/>
+        <result column="SORT" property="sort"/>
+        <result column="LAST_OPERATE_ID" property="lastOperateId"/>
+        <result column="LAST_OPERATE_NAME" property="lastOperateName"/>
+        <result column="APP_ID" property="appId"/>
+        <result column="SITE_ID" property="siteId"/>
+        <result column="STATUS" property="status"/>
+        <result column="AUTHOR_NAME" property="authorName"/>
+        <result column="SOURCE_NAME" property="sourceName"/>
+        <result column="SOURCE_URL" property="sourceUrl"/>
+        <result column="KEYWORD" property="keyword"/>
+        <result column="PROVINCE" property="province"/>
+        <result column="CITY" property="city"/>
+        <result column="COUNTY" property="county"/>
+        <result column="AREA_CODE" property="areaCode"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="SUMMARY" property="summary"/>
+        <result column="FILE_JSON" property="fileJson"/>
+        <result column="FILE_IS_PUBLIC" property="fileIsPublic"/>
+        <result column="SITE_AREA_CODE" property="siteAreaCode"/>
+        <result column="EFFECT_RANGE" property="effectRange"/>
+        <result column="TAGS" property="tags"/>
+        <result column="LINK_RESOURCE_TYPE" property="linkResourceType"/>
+        <result column="LINK_RESOURCE" property="linkResource"/>
+        <result column="BELONG_USER_ID" property="belongUserId"/>
+        <result column="IS_RECOMMEND" property="isRecommend"/>
+        <result column="READ_COUNT" property="readCount"/>
+    </resultMap>
+
+    <select id="countListOperation" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        <include refid="listOperationSql"></include>
+    </select>
+
+    <select id="listOperation" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        <include refid="listOperationSql"></include>
+        ORDER BY
+        PUBLISH_TIME DESC
+        LIMIT #{offset},#{pageSize}
+    </select>
+
+    <sql id="listOperationSql">
+        FROM
+        `article`
+        WHERE
+        IS_DELETED = 0
+        <if test="appId != null">
+            AND APP_ID = #{appId}
+        </if>
+        <if test="categoryId != null">
+            AND CATEGORY_ID = #{categoryId}
+        </if>
+        <if test="content != null">
+            AND CONTENT LIKE CONCAT('%',#{content},'%')
+        </if>
+        <if test="title != null">
+            AND TITLE LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="beginTime != null">
+            AND PUBLISH_TIME &gt;= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            AND PUBLISH_TIME &lt; #{endTime}
+        </if>
+        <if test="sourceName != null">
+            AND SOURCE_NAME LIKE CONCAT('%',#{sourceName},'%')
+        </if>
+        <if test="effectRange != null">
+            AND EFFECT_RANGE = #{effectRange}
+        </if>
+        <if test="tagId != null and tagId != ''">
+            AND TAGS LIKE CONCAT('%',#{tagId},'%')
+        </if>
+    </sql>
+
+</mapper>

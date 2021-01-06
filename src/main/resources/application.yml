@@ -1,0 +1,59 @@
+server:
+ port: 8086
+ tomcat:
+     max-threads: 100
+     min-spare-threads: 20
+ connection-timeout: 5000
+
+spring:
+  devtools:
+    restart:
+      enabled: false
+  aop:
+    proxy-target-class: true
+  messages:
+    basename: messages/core
+
+citizencloud:
+   url: jdbc:mysql://localhost:3306/hxjy?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+#   url: jdbc:mysql://rm-bp1y3064mn3eb48681o.mysql.rds.aliyuncs.com:3306/hxjy?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+   driverName: com.mysql.jdbc.Driver
+   username: root
+   password: 228913
+   initialSize: 1
+   minIdle: 1
+   maxActive: 1000
+   maxWait: 60000
+   timeBetweenEvictionRunsMillis: 60000
+   minEvictableIdleTimeMillis: 300000
+   validationQuery: SELECT 'x'
+   #druid recycle
+   removeAbandoned: true
+   removeAbandonedTimeout: 300
+   logAbandoned: false
+
+mybatis:
+   dbType: mysql
+   aliasesPackege: com.**.autogenerator.entity
+   mapperBasePackage: com.**.autogenerator.mapper
+   mapper-locations: classpath*:mapperxml/**/*.xml
+
+#logging
+#logging:
+#  level: info
+#  path: D:/logs/lcy
+
+rocketmq:
+  producer:
+    groupName: hxjy
+    namesrvAddr: 127.0.0.1:9876
+    default: true
+  consumer:
+    groupName: hxjy
+    namesrvAddr: 127.0.0.1:9876
+
+#logging:
+#  config: logback.xml
+
+quartz:
+  sendAfterSms: "* * * * 1 ?"

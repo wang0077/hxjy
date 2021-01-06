@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.ArticleCategoryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.ArticleCategory">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="SEQ_NUM" property="seqNum" />
+		<result column="PARENT_SEQ_NUM" property="parentSeqNum" />
+		<result column="SORT" property="sort" />
+		<result column="IS_LEAF_CATE" property="isLeafCate" />
+		<result column="ICON_ID" property="iconId" />
+		<result column="VERSION" property="version" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="APP_ID" property="appId" />
+		<result column="SITE_ID" property="siteId" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	
+	<select id="maxSeq" parameterType="java.util.Map" resultType="com.lcy.dto.common.TreeMaxSeqDTO">
+		SELECT MAX(SORT) maxSort,MAX(SEQ_NUM) maxSeqNum  
+		FROM article_category c 
+		WHERE  SITE_AREA_CODE=#{siteAreaCode} AND PARENT_ID=#{parentId}
+		<!-- c.APP_ID=#{appId} AND -->
+	</select>
+
+</mapper>

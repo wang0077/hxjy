@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.SocialEvaluateQuotaMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.SocialEvaluateQuota">
+		<result column="ID" property="id" />
+		<result column="USER_ID" property="userId" />
+		<result column="RESOURCE_ID" property="resourceId" />
+		<result column="RESOURCE_TYPE" property="resourceType" />
+		<result column="ATTR2" property="attr2" />
+		<result column="ATTR1" property="attr1" />
+		<result column="ATTR3" property="attr3" />
+		<result column="TIMES" property="times" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="APP_ID" property="appId" />
+			<result column="PRAISE_TIMES" property="praiseTimes" />
+		<result column="BAD_TIMES" property="badTimes" />
+	</resultMap>
+
+</mapper>

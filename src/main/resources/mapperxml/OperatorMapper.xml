@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.OperatorMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Operator">
+		<id column="ID" property="id" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PHONE" property="phone" />
+		<result column="DEPT_ID" property="deptId" />
+		<result column="DEPT_SEQ" property="deptSeq" />
+		<result column="IS_DEVELOPER" property="isDeveloper" />
+		<result column="PASSWORD" property="password" />
+		<result column="REMARK" property="remark" />
+		<result column="SORT" property="sort" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+		<result column="APP_ID" property="appId" />
+	</resultMap>
+
+	<select id="getMaxSort" parameterType="java.util.Map" resultType="com.lcy.dto.common.TreeMaxSeqDTO">
+		SELECT MAX(SORT) maxSort  
+		FROM operator o
+		WHERE o.DEPT_ID=#{deptId} AND o.IS_DELETED=#{isDeleted}
+	</select>
+	
+	<select id="listSubDeptAndOperator" parameterType="java.util.Map" resultType="com.lcy.dto.manage.TreeDeptOpreator">
+		SELECT v.*,(select count(0) from v_dept_operator v1 where v1.PARENT_ID = v.ID) subCount  
+		FROM v_dept_operator v
+		where v.IS_ADMIN=#{isAdmin} 
+		AND v.SITE_ID=#{siteId}
+		<choose>
+			<when test="parentId ==null or parentId == ''">AND v.PARENT_ID IS NULL</when>
+			<when test="parentId !=null and parentId != ''">AND v.PARENT_ID=#{parentId}</when>
+		</choose>
+		ORDER BY v.SORT desc;
+	</select>
+	
+</mapper>

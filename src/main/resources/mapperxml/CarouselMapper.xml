@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.CarouselMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Carousel">
+		<id column="CAROUSEL_ID" property="carouselId" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="IS_DELETED" property="isDeleted" />
+		<result column="DELETED_TIME" property="deletedTime" />
+		<result column="DELETE_OPERATOR_ID" property="deleteOperatorId" />
+		<result column="CATEGORY_ID" property="categoryId" />
+		<result column="PIC_ID" property="picId" />
+		<result column="NAME" property="name" />
+		<result column="SORT" property="sort" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="APP_ID" property="appId" />
+		<result column="LINK_URL" property="linkUrl" />
+		<result column="STATUS" property="status" />
+		<result column="SITE_ID" property="siteId" />
+		<result column="SMALL_PIC_ID" property="smallPicId" />
+		<result column="LINK_TYPE" property="linkType" />
+		<result column="DISPLAY_TYPE" property="displayType" />
+		<result column="CONFIG_ID" property="configId" />
+		<result column="SERVICE_ID" property="serviceId" />
+		<result column="SERVICE_NAME" property="serviceName" />
+		<result column="IS_SERVICE_UP" property="isServiceUp" />
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.SiteOperateLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.SiteOperateLog">
+		<id column="ID" property="id" />
+		<result column="SITE_ID" property="siteId" />
+		<result column="TYPE" property="type" />
+		<result column="OPERATOR_ID" property="operatorId" />
+		<result column="OPERATOR_PHONE" property="operatorPhone" />
+		<result column="OPERATOR_NAME" property="operatorName" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="RESULT" property="result" />
+		<result column="REMARK" property="remark" />
+		<result column="IP" property="ip" />
+		<result column="OS" property="os" />
+		<result column="MAC" property="mac" />
+	</resultMap>
+
+</mapper>

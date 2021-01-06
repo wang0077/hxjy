@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.ArticleRecommendMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.ArticleRecommend">
+		<id column="ID" property="id" />
+		<result column="APP_ID" property="appId" />
+		<result column="ARTICLE_ID" property="articleId" />
+		<result column="CATEGORY_ID" property="categoryId" />
+		<result column="SITE_ID" property="siteId" />
+		<result column="SITE_AREA_CODE" property="siteAreaCode" />
+		<result column="CREATE_TIME" property="createTime" />
+		<result column="CREATE_OPERATOR_ID" property="createOperatorId" />
+		<result column="UPDATE_TIME" property="updateTime" />
+		<result column="UPDATE_OPERATOR_ID" property="updateOperatorId" />
+		<result column="SORT" property="sort" />
+		<result column="REMARK" property="remark" />
+		<result column="PIC_ID" property="picId" />
+	</resultMap>
+	
+	<select id="listOperationArticleRcmd" parameterType="java.util.Map"  resultType="com.lcy.dto.business.ArticleRcmdOperationDTO">
+		SELECT
+			ar.ID id, ar.CATEGORY_ID categoryId,
+			ar.ARTICLE_ID articleId, a.TITLE title
+		<include refid="listOperationArticleRcmdsql"></include>
+		ORDER BY ar.SORT DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="countListOperationArticleRcmd" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		<include refid="listOperationArticleRcmdsql"></include>
+	</select>
+	
+	<sql id="listOperationArticleRcmdsql">
+		FROM
+			article_recommend ar
+		LEFT JOIN `article` a ON ar.ARTICLE_ID = a.ID
+		<where>
+			a.STATUS = 1 AND a.IS_DELETED = 0 
+			AND ar.SITE_ID = #{siteId}
+			<if test="categoryId != null">
+				AND ar.CATEGORY_ID = #{categoryId}
+			</if>
+			<if test="keyword != null">
+				AND	a.`TITLE` LIKE concat('%', #{keyword}, '%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="listOperationArticle" parameterType="java.util.Map" resultType="com.lcy.autogenerator.entity.Article">
+		SELECT
+			a.*
+		<include refid="listOperationArticlesql"></include>
+		ORDER BY a.PUBLISH_TIME DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="countListOperationArticle" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		<include refid="listOperationArticlesql"></include>
+	</select>
+	
+	<sql id="listOperationArticlesql">
+		FROM
+			article a
+		<where>
+			a.STATUS = 1 AND a.IS_DELETED = 0
+			AND a.ID NOT IN (SELECT ar.ARTICLE_ID FROM article_recommend ar)
+			AND a.SITE_ID = #{siteId}
+			<if test="keyword != null">
+				AND	a.`TITLE` LIKE concat('%', #{keyword}, '%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="countArticleById" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+			count(*)
+		FROM 
+			article_recommend ar
+			LEFT JOIN `article` a ON ar.ARTICLE_ID = a.ID
+		<where>
+			ar.SITE_ID = #{siteId} AND ar.CATEGORY_ID = #{categoryId} AND a.STATUS =1 AND a.IS_DELETED = 0
+		</where>
+	</select>
+	
+</mapper>

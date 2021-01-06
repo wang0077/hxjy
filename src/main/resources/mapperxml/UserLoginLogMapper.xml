@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.UserLoginLogMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.UserLoginLog">
+		<id column="login_log_id" property="loginLogId" />
+		<result column="user_id" property="userId" />
+		<result column="login_time" property="loginTime" />
+		<result column="device_number" property="deviceNumber" />
+		<result column="app_version" property="appVersion" />
+		<result column="login_ip" property="loginIp" />
+		<result column="api_version" property="apiVersion" />
+		<result column="login_terminal" property="loginTerminal" />
+		<result column="device_client_id" property="deviceClientId" />
+		<result column="device_token_id" property="deviceTokenId" />
+		<result column="login_type" property="loginType" />
+		<result column="os" property="os" />
+		<result column="network" property="network" />
+		<result column="os_version" property="osVersion" />
+		<result column="device_type" property="deviceType" />
+		<result column="APP_ID" property="appId" />
+		<result column="SITE_ID" property="siteID" />
+		<result column="SITE_AREA_CODE" property="siteAreaCode" />
+	</resultMap>
+	<select id="countUserList" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select 
+		count(*) 
+		from 
+		user_login_log
+	</select>
+</mapper>
