@@ -160,7 +160,7 @@ public class UserDailyStatisticsBLL extends AbstractBO<UserDailyStatistics> impl
 
     @Override
     @Transactional
-    public boolean saveClockIn(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum, String date, Long count, Long count2, String value) {
+    public boolean saveClockIn(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum, String date, Long count, Long count2,Long count3, String value) {
 
         String id = MD5.getMD5Code(userId + InnoPlatformConstants.COMMA_EN + userDailyStatisticsTypeEnum.getNo() +
                 InnoPlatformConstants.COMMA_EN + date);
@@ -182,6 +182,11 @@ public class UserDailyStatisticsBLL extends AbstractBO<UserDailyStatistics> impl
                 bean.setCount(count);
                 bean.setCount2(count2);
                 bean.setValue(value);
+// 新添加部分 --------------------------判断在饮食记录下多添加一个Count3就是催吐的数据-------------------------------------------
+                if(userDailyStatisticsTypeEnum == UserDailyStatisticsTypeEnum.DIET_DAIRY){
+                    bean.setCount3(count3);
+                }
+//------------------------------------------------------------------------------------------------------------------------
             } else {
                 if (count != null){
                     bean.setCount(bean.getCount() + count);
