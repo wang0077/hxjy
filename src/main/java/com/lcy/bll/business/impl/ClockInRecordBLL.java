@@ -112,12 +112,12 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         ClockInRecord clockInRecord = new ClockInRecord(userId, ClockInRecordTypeEnum.MINDFULNESS, resourceId, date, hasClockInRecord == null);
 
         return  handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.MINDFULNESS, date, 1L, timeValue, null);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.MINDFULNESS, date, 1L, timeValue, null,null);
     }
 
     @Override
     @Transactional
-    public boolean dietDiaryClockIn(String userId, String date, boolean canClockIn, long gluttonyTimes, long gluttonyImpulseTimes, String percentValue) {
+    public boolean dietDiaryClockIn(String userId, String date, boolean canClockIn, long gluttonyTimes, long gluttonyImpulseTimes,long emeticTimes, String percentValue) {
 
         // 是否可以打卡
         if (canClockIn){
@@ -133,7 +133,7 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         ClockInRecord clockInRecord = new ClockInRecord(userId, ClockInRecordTypeEnum.DIET_DAIRY, null, date, true);
 
         return (!canClockIn || (handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord))) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.DIET_DAIRY, date, gluttonyTimes, gluttonyImpulseTimes, percentValue);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.DIET_DAIRY, date, gluttonyTimes, gluttonyImpulseTimes,emeticTimes,percentValue);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         clockInRecord.setExtraInfo(extraInfo);
 
         return  handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.REGULAR_DIET, date, hasSet ? 1L : 0L, null, null);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.REGULAR_DIET, date, hasSet ? 1L : 0L, null, null,null);
     }
 
     @Override
@@ -242,7 +242,7 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         ClockInRecord clockInRecord = new ClockInRecord(userId, ClockInRecordTypeEnum.HAPPY_EVENT, resourceId, date, hasClockInRecord == null);
 
         return eventTodoBLL.delete(userId, eventTodo.getId()) && handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.HAPPY_EVENT, date, 1L, null, null);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.HAPPY_EVENT, date, 1L, null,null, null);
     }
 
     @Override
@@ -258,7 +258,7 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         ClockInRecord clockInRecord = new ClockInRecord(userId, ClockInRecordTypeEnum.PAIN_EVENT, resourceId, date, hasClockInRecord == null);
 
         return  eventTodoBLL.delete(userId, eventTodo.getId()) && handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.PAIN_EVENT, date, 1L, null, null);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.PAIN_EVENT, date, 1L, null, null,null);
     }
 
     @Override
@@ -269,7 +269,7 @@ public class ClockInRecordBLL extends AbstractBO<ClockInRecord> implements ICloc
         ClockInRecord clockInRecord = new ClockInRecord(userId, ClockInRecordTypeEnum.WEIGHT_CHECK, null, date, hasClockInRecord == null);
 
         return  handleUserClockInCount(userId, date) && clockInRecordService.insert(clockInRecord) &&
-                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.WEIGHT_CHECK, date, 1L, null, weight);
+                userDailyStatisticsBLL.saveClockIn(userId, UserDailyStatisticsTypeEnum.WEIGHT_CHECK, date, 1L, null,null, weight);
     }
 
     @Override

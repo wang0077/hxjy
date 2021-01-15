@@ -15,7 +15,7 @@ spring:
     basename: messages/core
 
 citizencloud:
-   url: jdbc:mysql://localhost:3306/hxjy?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+   url: jdbc:mysql://localhost:3306/hxjy?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
 #   url: jdbc:mysql://rm-bp1y3064mn3eb48681o.mysql.rds.aliyuncs.com:3306/hxjy?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
    driverName: com.mysql.jdbc.Driver
    username: root

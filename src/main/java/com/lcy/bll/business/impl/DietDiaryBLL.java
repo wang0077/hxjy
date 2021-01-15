@@ -82,6 +82,7 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
             dietDiary.setId(id);
             dietDiary.setUpdateTime(timeMillis);
         }
+
         boolean flag = dietDiaryService.insertOrUpdate(dietDiary);
         if (flag){
             dietDiary = get(id);
@@ -89,6 +90,12 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
             long gluttonyImpulseTimes = 0;
             // 暴食次数
             long gluttonyTimes = 0;
+
+
+            // 催吐次数
+            long emeticTimes = 0;
+
+
             int configItemCount = 0;
             String percentValue = "";
             DietDiaryDTO dietDiaryDTO = tran(dietDiary);
@@ -96,24 +103,38 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
             if (breakfastMealDTO != null){
                 gluttonyImpulseTimes += breakfastMealDTO.getGluttonyImpulseTimes() == null ? 0 : breakfastMealDTO.getGluttonyImpulseTimes();
                 gluttonyTimes += breakfastMealDTO.getGluttonyTimes() == null ? 0 : breakfastMealDTO.getGluttonyTimes();
+                emeticTimes += breakfastMealDTO.getEmeticTimes() == null ? 0 : breakfastMealDTO.getEmeticTimes();
                 configItemCount += breakfastMealDTO.getConfigItemCount();
             }
             MealDTO lunchMealDTO = dietDiaryDTO.getLunchMealDTO();
             if (lunchMealDTO != null){
                 gluttonyImpulseTimes += lunchMealDTO.getGluttonyImpulseTimes() == null ? 0 : lunchMealDTO.getGluttonyImpulseTimes();
                 gluttonyTimes += lunchMealDTO.getGluttonyTimes() == null ? 0 : lunchMealDTO.getGluttonyTimes();
+                emeticTimes += lunchMealDTO.getEmeticTimes() == null ? 0 : lunchMealDTO.getEmeticTimes();
                 configItemCount += lunchMealDTO.getConfigItemCount();
             }
             MealDTO dinnerMealDTO = dietDiaryDTO.getDinnerMealDTO();
             if (dinnerMealDTO != null){
                 gluttonyImpulseTimes += dinnerMealDTO.getGluttonyImpulseTimes() == null ? 0 : dinnerMealDTO.getGluttonyImpulseTimes();
                 gluttonyTimes += dinnerMealDTO.getGluttonyTimes() == null ? 0 : dinnerMealDTO.getGluttonyTimes();
+                emeticTimes += dinnerMealDTO.getEmeticTimes() == null ? 0 : dinnerMealDTO.getEmeticTimes();
                 configItemCount += dinnerMealDTO.getConfigItemCount();
             }
+//新添加部分 --------------------------把新的其他时间进食的数据加进去-------------------------------------
+            MealDTO otherTimeEatDTO = dietDiaryDTO.getOtherTimeEatDTO();
+            if(otherTimeEatDTO != null){
+                gluttonyImpulseTimes += otherTimeEatDTO.getGluttonyImpulseTimes() == null ? 0 : otherTimeEatDTO.getGluttonyImpulseTimes();
+                gluttonyTimes += otherTimeEatDTO.getGluttonyTimes() == null ? 0 : otherTimeEatDTO.getGluttonyTimes();
+                emeticTimes += otherTimeEatDTO.getEmeticTimes() == null ? 0 : otherTimeEatDTO.getEmeticTimes();
+                configItemCount += otherTimeEatDTO.getConfigItemCount();
+            }
+//--------------------------------------------------------------------------------------------------
 
-            percentValue = DecimalFormatUtils.floatFormat(configItemCount/12f * 100) + "%";
-
-            flag = clockInRecordBLL.dietDiaryClockIn(userId, date, false, gluttonyTimes, gluttonyImpulseTimes, percentValue);
+//新添加部分 ----------------------------------------把原本的12改成20---------------------------------------------------------
+            percentValue = DecimalFormatUtils.floatFormat(configItemCount/20f * 100) + "%";
+//                  修改这个方法，把emeticTimes催吐的数据也传进去
+            flag = clockInRecordBLL.dietDiaryClockIn(userId, date, false, gluttonyTimes, gluttonyImpulseTimes,emeticTimes, percentValue);
+// ------------------------------------------------------------------------------------------------------------
         }
         DietDiarySaveDTO dto = new DietDiarySaveDTO();
         dto.setSuccess(flag);
@@ -144,6 +165,8 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
         long gluttonyImpulseTimes = 0;
         // 暴食次数
         long gluttonyTimes = 0;
+        // 催吐次数
+        long emeticTimes = 0;
         int configItemCount = 0;
         String percentValue = "";
         boolean canFeedback = true;
@@ -153,6 +176,7 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
         if (breakfastMealDTO != null){
             gluttonyImpulseTimes += breakfastMealDTO.getGluttonyImpulseTimes() == null ? 0 : breakfastMealDTO.getGluttonyImpulseTimes();
             gluttonyTimes += breakfastMealDTO.getGluttonyTimes() == null ? 0 : breakfastMealDTO.getGluttonyTimes();
+            emeticTimes += breakfastMealDTO.getEmeticTimes() == null ? 0 : breakfastMealDTO.getEmeticTimes();
             configItemCount += breakfastMealDTO.getConfigItemCount();
         } else {
             canFeedback = false;
@@ -161,6 +185,7 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
         if (lunchMealDTO != null){
             gluttonyImpulseTimes += lunchMealDTO.getGluttonyImpulseTimes() == null ? 0 : lunchMealDTO.getGluttonyImpulseTimes();
             gluttonyTimes += lunchMealDTO.getGluttonyTimes() == null ? 0 : lunchMealDTO.getGluttonyTimes();
+            emeticTimes += lunchMealDTO.getEmeticTimes() == null ? 0 : lunchMealDTO.getEmeticTimes();
             configItemCount += lunchMealDTO.getConfigItemCount();
         } else {
             canFeedback = false;
@@ -169,11 +194,13 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
         if (dinnerMealDTO != null){
             gluttonyImpulseTimes += dinnerMealDTO.getGluttonyImpulseTimes() == null ? 0 : dinnerMealDTO.getGluttonyImpulseTimes();
             gluttonyTimes += dinnerMealDTO.getGluttonyTimes() == null ? 0 : dinnerMealDTO.getGluttonyTimes();
+            emeticTimes += dinnerMealDTO.getEmeticTimes() == null ? 0 : dinnerMealDTO.getEmeticTimes();
             configItemCount += dinnerMealDTO.getConfigItemCount();
         } else {
             canFeedback = false;
         }
 
+//-------------------------这一部分找不到这个反馈码的意义--------------------------------
         if (canFeedback){
             if (gluttonyTimes > 0 && gluttonyImpulseTimes > 0){
                 feedbackCode = 1;
@@ -185,9 +212,10 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
                 feedbackCode = 4;
             }
         }
-        percentValue = DecimalFormatUtils.floatFormat(configItemCount/12f * 100) + "%";
+//  ----------------------------------------------------------------------------------
+        percentValue = DecimalFormatUtils.floatFormat(configItemCount/20f * 100) + "%";
 
-        boolean flag = clockInRecordBLL.dietDiaryClockIn(userId, date, true, gluttonyTimes, gluttonyImpulseTimes, percentValue);
+        boolean flag = clockInRecordBLL.dietDiaryClockIn(userId, date, true, gluttonyTimes, gluttonyImpulseTimes,emeticTimes, percentValue);
         DietDiarySaveDTO dto = new DietDiarySaveDTO();
         dto.setSuccess(flag);
         dto.setFeedbackCode(feedbackCode);
@@ -220,6 +248,11 @@ public class DietDiaryBLL extends AbstractBO<DietDiary> implements IDietDiaryBLL
         if (StringUtils.isNotEmpty(dietDiary.getDinnerJson())){
             dto.setDinnerMealDTO(GsonUtils.jsonToBean(dietDiary.getDinnerJson(), MealDTO.class));
         }
+// 新添加部分 --------------------------转换的时候把其他时间进食加进去---------------------------------------
+        if(StringUtils.isNotEmpty(dietDiary.getOtherTimeEatJson())){
+            dto.setOtherTimeEatDTO(GsonUtils.jsonToBean(dietDiary.getOtherTimeEatJson(),MealDTO.class));
+        }
+//---------------------------------------------------------------------------------------------------
 
         boolean hasClockIn = false;
 

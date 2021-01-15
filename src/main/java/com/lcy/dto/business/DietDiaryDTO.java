@@ -27,7 +27,20 @@ public class DietDiaryDTO {
      */
     private MealDTO dinnerMealDTO;
 
+    /**
+     * 其他时间进餐
+     */
+    private MealDTO otherTimeEatDTO;
+
     private boolean hasClockIn;
+
+    public MealDTO getOtherTimeEatDTO() {
+        return otherTimeEatDTO;
+    }
+
+    public void setOtherTimeEatDTO(MealDTO otherTimeEatDTO) {
+        this.otherTimeEatDTO = otherTimeEatDTO;
+    }
 
     public boolean isHasClockIn() {
         return hasClockIn;

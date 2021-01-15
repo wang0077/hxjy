@@ -604,6 +604,7 @@ public class UserDailyStatisticsBLL extends AbstractBO<UserDailyStatistics> impl
         UserDailyStatistics userDailyStatistics = new UserDailyStatistics();
         userDailyStatistics.setCount(0L);
         userDailyStatistics.setCount2(0L);
+        userDailyStatistics.setCount3(0L);
         userDailyStatistics.setValue("0");
         return userDailyStatistics;
     }

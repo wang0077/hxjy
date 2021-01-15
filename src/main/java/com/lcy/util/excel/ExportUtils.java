@@ -828,6 +828,56 @@ public class ExportUtils {
             workbook = ExcelUtils.exportExcelAppend(workbook, title, headers,columns, result);
 
             result = new ArrayList<>();
+//  新添加部分 ------------------------------这部分是获取全部的饮食数据，现在追加催吐的数据----------------------------------------
+
+            if (allUserDayIndexData != null) {
+
+
+                if (laboratoryPerson){
+                    for (String edId : userEdIdList) {
+                        map = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<Integer, UserDailyStatistics> value = allUserDayIndexData.get(edId);
+
+                        for (int j = 0; j < sum; j++){
+                            if (j == 0){
+                                map.put(columns[j], edId);
+                            }else{
+                                if (value != null && value.containsKey(j) && value.get(j) != null){
+                                    map.put(columns[j], value.get(j).getCount3());
+                                } else {
+                                    map.put(columns[j], 0);
+                                }
+                            }
+                        }
+                        result.add(map);
+                    }
+                } else {
+
+                    for (String userId : userIdList) {
+                        map = new LinkedHashMap<String, Object>();
+                        LinkedHashMap<Integer, UserDailyStatistics> value = allUserDayIndexData.get(userId);
+
+                        for (int j = 0; j < sum; j++){
+                            if (j == 0){
+                                map.put(columns[j], userId);
+                            }else{
+                                if (value != null && value.containsKey(j) && value.get(j) != null){
+                                    map.put(columns[j], value.get(j).getCount3());
+                                } else {
+                                    map.put(columns[j], 0);
+                                }
+                            }
+                        }
+                        result.add(map);
+                    }
+                }
+            }
+
+            title = new String[] { "催吐次数" };
+            workbook = ExcelUtils.exportExcelAppend(workbook, title, headers,columns, result);
+
+            result = new ArrayList<>();
+//------------------------------------------------------------------------------------------------------
 
             if (allUserDayIndexData != null) {
 
@@ -991,6 +1041,90 @@ public class ExportUtils {
 
     }
 
+//    新添加部分 -----------------------------------获取单独的催吐数据----------------------------------------------
+    /**
+     * 输出excel 字符流
+     * @param response
+     * @param allUserDayIndexData
+     */
+    public static void exportExcelDietDiaryEmeticTimes(HttpServletResponse response, LinkedHashMap<String, LinkedHashMap<Integer, UserDailyStatistics>> allUserDayIndexData, int day,
+                                                                boolean laboratoryPerson, List<String> userIdList, List<String> userEdIdList){
+
+        // 获取输出流
+        OutputStream out = null;
+
+        // 设置作为Excel标题的字符串
+        String firstTitle = "饮食日记-催吐次数";
+
+        try{
+            // 设置内容类型
+            response.setContentType("octets/stream");
+
+            // 设置响应头
+            response.addHeader("Content-Disposition", "attachment;filename="
+                    + new String((firstTitle).getBytes("GB2312"), "iso8859-1")+ ".xls");
+
+            // 获取输出流
+            out = response.getOutputStream();
+
+            // 存放数据对象的容器
+            List<LinkedHashMap<String, Object>> result = new ArrayList<LinkedHashMap<String, Object>>();
+
+            // 存放数据的对象
+            LinkedHashMap<String, Object> map = null;
+
+            // 记录列表的字段个数
+            int sum = 1 + day;
+
+            // 存放字段中文名作为Excel表头
+            String[] headers = new String[sum];
+
+            // 存放字段英文名作为列名
+            String[] columns = new String[sum];
+
+            for (int j = 0; j < sum; j++){
+                if (j == 0){
+                    headers[j] = "ID";
+                }else{
+                    headers[j] = "第" + j + "天";
+                }
+                columns[j] = j + "";
+            }
+
+            if (allUserDayIndexData != null) {
+
+                for (String edId : userEdIdList) {
+                    map = new LinkedHashMap<String, Object>();
+                    LinkedHashMap<Integer, UserDailyStatistics> value = allUserDayIndexData.get(edId);
+
+                    for (int j = 0; j < sum; j++) {
+                        if (j == 0) {
+                            map.put(columns[j], edId);
+                        } else {
+                            if (value != null && value.containsKey(j) && value.get(j) != null) {
+                                map.put(columns[j], value.get(j).getCount3());
+                            } else {
+                                map.put(columns[j], 0);
+                            }
+                        }
+                    }
+                    result.add(map);
+                }
+                // 标题数组（根据需求，可存放多级标题）
+                String[] title = new String[] { "饮食日记-暴食冲动次数" };
+
+                // 调用导出到Excel的工具类
+                HSSFWorkbook workbook = ExcelUtils.exportExcel(title, headers,columns, result, null);
+
+                // 输出Excel表格
+                workbook.write(out);
+            }
+        }catch (IOException e){
+
+        }
+
+    }
+//--------------------------------------------------------------------------------------------------
     /**
      * 输出excel 字符流
      * @param response

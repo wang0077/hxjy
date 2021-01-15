@@ -17,7 +17,7 @@ public interface IUserDailyStatisticsBLL extends ICommonBO<UserDailyStatistics> 
 
     boolean saveScale(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum, String date, Long count, Long count2, String value);
 
-    boolean saveClockIn(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum, String date, Long count, Long count2, String value);
+    boolean saveClockIn(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum, String date, Long count, Long count2, Long count3, String value);
 
     UserDailyStatistics getLastest(String userId, UserDailyStatisticsTypeEnum userDailyStatisticsTypeEnum);
 

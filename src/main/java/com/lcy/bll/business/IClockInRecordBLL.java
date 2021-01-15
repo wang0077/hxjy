@@ -15,7 +15,9 @@ public interface IClockInRecordBLL extends ICommonBO<ClockInRecord> {
 
     boolean mindFulnessClockIn(String userId, String resourceId);
 
-    boolean dietDiaryClockIn(String userId, String date, boolean canClockIn, long gluttonyTimes, long gluttonyImpulseTimes, String percentValue);
+//    新添加部分 --------------------------------添加催吐数据---------------------------------------------
+    boolean dietDiaryClockIn(String userId, String date, boolean canClockIn, long gluttonyTimes, long gluttonyImpulseTimes,long emeticTimes, String percentValue);
+//-------------------------------------------------------------------------------------------------
 
     MindfulnessClockInDTO getMindFulnessClockIn(String userId);
 

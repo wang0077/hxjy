@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-//@WebFilter(filterName = "innoCoreFilter", urlPatterns = "/*")
+@WebFilter(filterName = "innoCoreFilter", urlPatterns = "/*")
 public class InnoCoreFilter implements Filter {
 
     @Override

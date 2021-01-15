@@ -24,6 +24,8 @@ public interface IDietDiaryController {
 
     String exportExcelDietDiaryGluttonyTimes(boolean laboratoryPerson, Integer day, HttpServletRequest request, HttpServletResponse response);
 
+    String exportExcelEmeticTimes(boolean laboratoryPerson, Integer day, HttpServletRequest request, HttpServletResponse response);
+
     String exportExcelDietDiaryGluttonyImpulseTimes(boolean laboratoryPerson, Integer day, HttpServletRequest request, HttpServletResponse response);
 
     String exportExcelDietDiaryPercent(boolean laboratoryPerson, Integer day, HttpServletRequest request, HttpServletResponse response);

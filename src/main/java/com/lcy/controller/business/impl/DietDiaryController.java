@@ -49,9 +49,9 @@ public class DietDiaryController extends BaseController implements IDietDiaryCon
         if (params == null){
             return renderInvalidArgument();
         }
-//        String userId = UserLoginTokenUtils.getUserId(params);
-        String userId  = "123323";
-        System.out.println(userId);
+        String userId = UserLoginTokenUtils.getUserId(params);
+//        String userId  = "123323";
+//        System.out.println(userId);
         if (StringUtils.isEmpty(userId)){
             return unloginInvalid();
         }
@@ -115,6 +115,19 @@ public class DietDiaryController extends BaseController implements IDietDiaryCon
                 userEdIdList);
         return null;
     }
+
+//    新添加部分 --------------------------------添加获取催吐的Excel-------------------------------------
+    @Override
+    @RequestMapping(value="/exportExcelEmeticTimes",method =  {RequestMethod.GET,RequestMethod.POST})
+    public String exportExcelEmeticTimes(boolean laboratoryPerson, Integer day, HttpServletRequest request, HttpServletResponse response){
+        List<String> userIdList = new ArrayList<>();
+        List<String> userEdIdList = new ArrayList<>();
+        ExportUtils.exportExcelDietDiaryEmeticTimes(response, userDailyStatisticsBLL.getExportExcelDataNew(UserDailyStatisticsTypeEnum.DIET_DAIRY, laboratoryPerson, userIdList,
+                userEdIdList, null, day, false), day, laboratoryPerson, userIdList,
+                userEdIdList);
+        return null;
+    }
+//----------------------------------------------------------------------------
 
     @Override
     @RequestMapping(value="/exportExcelGluttonyImpulseTimes",method =  {RequestMethod.GET,RequestMethod.POST})

@@ -44,6 +44,11 @@ public class UserDailyStatistics extends Model<UserDailyStatistics> {
 	 */
 	@TableField("COUNT2")
 	private Long count2;
+    /**
+     * 数目3
+     */
+    @TableField("COUNT3")
+	private Long count3;
 	/**
 	 * 值
 	 */
@@ -60,7 +65,15 @@ public class UserDailyStatistics extends Model<UserDailyStatistics> {
 	@TableField("PERIOD")
 	private Integer period;
 
-	public Integer getPeriod() {
+    public Long getCount3() {
+        return count3;
+    }
+
+    public void setCount3(Long count3) {
+        this.count3 = count3;
+    }
+
+    public Integer getPeriod() {
 		return period;
 	}
 

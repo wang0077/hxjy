@@ -14,6 +14,10 @@ public class MealDTO {
      * 暴食次数
      */
     private Integer gluttonyTimes;
+    /**
+     * 催吐次数
+     */
+    private Integer emeticTimes;
 
     /**
      * 获取已经配置的项的数目
@@ -33,7 +37,18 @@ public class MealDTO {
         if (this.gluttonyTimes != null){
             count += 1;
         }
+        if (this.emeticTimes != null){
+            count += 1;
+        }
         return count;
+    }
+
+    public Integer getEmeticTimes() {
+        return emeticTimes;
+    }
+
+    public void setEmeticTimes(Integer emeticTimes) {
+        this.emeticTimes = emeticTimes;
     }
 
     public String getEatTime() {

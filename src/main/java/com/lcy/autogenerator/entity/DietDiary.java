@@ -50,6 +50,11 @@ public class DietDiary extends Model<DietDiary> {
 	@TableField("DINNER_JSON")
 	private String dinnerJson;
     /**
+     * 其他时间进食
+     */
+	@TableField("OTHER_TIMES_EAT_JSON")
+	private String otherTimeEatJson;
+    /**
      * 创建时间
      */
 	@TableField("CREATE_TIME")
@@ -60,8 +65,15 @@ public class DietDiary extends Model<DietDiary> {
 	@TableField("UPDATE_TIME")
 	private Long updateTime;
 
+    public String getOtherTimeEatJson() {
+        return otherTimeEatJson;
+    }
 
-	public String getId() {
+    public void setOtherTimeEatJson(String otherTimeEatJson) {
+        this.otherTimeEatJson = otherTimeEatJson;
+    }
+
+    public String getId() {
 		return id;
 	}
 
