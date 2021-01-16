@@ -1,5 +1,6 @@
 package com.lcy.params.business.Skillcard;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lcy.params.common.BaseParams;
 
 /**
@@ -9,8 +10,10 @@ public class LifeGoalCardParams extends BaseParams {
 
     private String id;
 
+    @JsonProperty(value = "CardName")
     private String CardName;
 
+    @JsonProperty(value = "CardDescribe")
     private String CardDescribe;
 
     public String getId() {

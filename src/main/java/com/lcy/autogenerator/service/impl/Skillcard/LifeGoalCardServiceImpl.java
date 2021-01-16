@@ -42,7 +42,8 @@ public class LifeGoalCardServiceImpl extends ServiceImpl<LifeGoalCardMapper, Lif
         if(bean == null){
             return true;
         }
-        if(!retBool(lifeGoalCardMapper.deleteById(id))){
+        Integer ID = Integer.parseInt(id);
+        if(!retBool(lifeGoalCardMapper.deleteById(ID))){
             throw new ServiceException("删除失败");
         }
 

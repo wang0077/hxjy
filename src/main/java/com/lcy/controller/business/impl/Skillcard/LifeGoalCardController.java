@@ -86,7 +86,7 @@ public class LifeGoalCardController extends BaseController implements ILifeGoalC
     }
 
     @Override
-    @RequestMapping(value = "/remove",method = RequestMethod.GET)
+    @RequestMapping(value = "/remove",method = RequestMethod.POST)
 //    删除人生目标卡片
     public ResponseResult<Boolean> remove(@RequestBody IDParams params){
         ResponseResult<Boolean> check = check(params);
