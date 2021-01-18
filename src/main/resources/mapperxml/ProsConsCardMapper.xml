@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcy.autogenerator.mapper.Skillcard.LifeGoalMapper">
+<mapper namespace="com.lcy.autogenerator.mapper.Skillcard.ProsConsCardMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Skillcard.LifeGoal">
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Skillcard.ProsConsCard">
 		<id column="ID" property="id" />
 		<result column="USER_ID" property="userId" />
-		<result column="targetsJSON" property="targetsJSON" />
-		<result column="targetJSON" property="targetJSON" />
-		<result column="stepJSON" property="stepJSON" />
+		<result column="target" property="target" />
+		<result column="obeyJSON" property="obeyJSON" />
+		<result column="violateJSON" property="violateJSON" />
 		<result column="DATE" property="date" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
@@ -25,13 +25,12 @@
         <result column="PERIOD" property="period" />
     </resultMap>
 
+    <select id="listByUserId" resultMap="BaseResultMap">
+        select * from pros_cons_card where USER_ID = #{userId} order by DATE desc
+    </select>
     <select id="getTodayUserDailyStatisticsById" resultMap="UserDailyStatisticsByIdResultMap">
         select *
-        from user_daily_statistics where TYPE = 12 and DATE = date_format(now(),'%Y-%m-%d');
+        from user_daily_statistics where TYPE = 13 and DATE = date_format(now(),'%Y-%m-%d') order by DATE DESC;
     </select>
 
-    <select id="listUserLifeGoal" resultMap="BaseResultMap">
-        select *
-        from life_goal where USER_ID = #{userId} order by DATE DESC;
-    </select>
 </mapper>

@@ -89,10 +89,10 @@ public class LifeGoalCardServiceImpl extends ServiceImpl<LifeGoalCardMapper, Lif
 
 
     private List<LifeGoalCardDTO> tran(List<LifeGoalCard> lifeGoalCards){
-        if(lifeGoalCards.size() == 0){
-            return null;
-        }
         List<LifeGoalCardDTO> lifeGoalCardDTOS = new ArrayList<>();
+        if(lifeGoalCards.size() == 0){
+            return lifeGoalCardDTOS;
+        }
         for (LifeGoalCard lifeGoalCard : lifeGoalCards){
             lifeGoalCardDTOS.add(tran(lifeGoalCard));
         }

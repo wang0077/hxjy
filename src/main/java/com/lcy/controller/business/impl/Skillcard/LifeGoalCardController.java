@@ -114,7 +114,6 @@ public class LifeGoalCardController extends BaseController implements ILifeGoalC
         if(StringUtils.isEmpty(userId)){
             return unloginInvalid();
         }
-//        String userId = "123";
         boolean isSuccess = lifeGoalService.save(userId, params);
         return renderSuccess(isSuccess);
     }
