@@ -71,7 +71,7 @@ public class ProsConsController extends BaseController implements IProsConsContr
 
 //    提交
     @Override
-    @RequestMapping(value = "clockIn",method = RequestMethod.POST)
+    @RequestMapping(value = "/clockIn",method = RequestMethod.POST)
     public ResponseResult<Boolean> clockIn(@RequestBody ProsConsCardParams params) {
         if(params == null){
             return renderInvalidArgument();
@@ -102,7 +102,7 @@ public class ProsConsController extends BaseController implements IProsConsContr
 
 //    后台导出数据
     @Override
-    @RequestMapping(value = "pageExport",method = RequestMethod.POST)
+    @RequestMapping(value = "/pageExport",method = RequestMethod.POST)
     public ResponseResult<PageResult<UserDailyStatisticsPageListDTO>> getExportExcelData(@RequestBody PageParams params) {
         if(params == null){
             return renderInvalidArgument();
