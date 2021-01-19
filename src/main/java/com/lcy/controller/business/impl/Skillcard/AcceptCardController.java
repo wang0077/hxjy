@@ -57,8 +57,6 @@ public class AcceptCardController extends BaseController implements IAcceptCardC
 
         String userId = UserLoginTokenUtils.getUserId(params);
 
-        userId = "123";
-
         if(StringUtils.isEmpty(userId)){
             return unloginInvalid();
         }
