@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lcy.autogenerator.mapper.Skillcard.LifeGoalMapper">
+<mapper namespace="com.lcy.autogenerator.mapper.Skillcard.AcceptCardMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Skillcard.LifeGoal">
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Skillcard.AcceptCard">
 		<id column="ID" property="id" />
 		<result column="USER_ID" property="userId" />
-		<result column="targetsJSON" property="targetsJSON" />
-		<result column="targetJSON" property="targetJSON" />
-		<result column="stepJSON" property="stepJSON" />
+		<result column="fact" property="fact" />
 		<result column="DATE" property="date" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
@@ -30,8 +28,9 @@
         from user_daily_statistics where TYPE = 16 and DATE = date_format(now(),'%Y-%m-%d');
     </select>
 
-    <select id="listUserLifeGoal" resultMap="BaseResultMap">
-        select *
-        from life_goal where USER_ID = #{userId} order by DATE DESC;
+
+    <select id="listByUserId" resultMap="BaseResultMap">
+            select * from accept_card where USER_ID = #{userId} order by DATE desc
     </select>
+
 </mapper>
