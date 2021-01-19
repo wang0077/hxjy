@@ -14,7 +14,8 @@ public enum UserDailyStatisticsTypeEnum {
 	PAIN_EVENT(10, "痛苦事件"),
 	WEIGHT_CHECK(11, "体重监测"),
     LIFE_GOAL(12,"人生目标卡"),
-    PROS_CONS(13,"利弊分析卡")
+    PROS_CONS(13,"利弊分析卡"),
+    ACCEPT_CARD(16,"全然接收卡")
 	;
 
 	private int no; // 编号
