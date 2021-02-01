@@ -88,7 +88,6 @@ public class BehaviorChainCardController extends BaseController implements IBeha
 
         String userId = UserLoginTokenUtils.getUserId(param);
 
-        userId = "123";
 
         if(StringUtils.isEmpty(userId)){
             return unloginInvalid();
@@ -138,7 +137,6 @@ public class BehaviorChainCardController extends BaseController implements IBeha
 
         String userId = UserLoginTokenUtils.getUserId(params);
 
-        userId = "123";
         if(StringUtils.isEmpty(userId)){
             return unloginInvalid();
         }
