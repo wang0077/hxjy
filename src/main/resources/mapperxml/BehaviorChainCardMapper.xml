@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcy.autogenerator.mapper.Skillcard.BehaviorChainCardMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.lcy.autogenerator.entity.Skillcard.BehaviorChainCard">
+		<id column="ID" property="id" />
+		<result column="USER_ID" property="userId" />
+		<result column="problem" property="problem" />
+		<result column="inducement" property="inducement" />
+		<result column="factor" property="factor" />
+		<result column="event_chain" property="eventChain" />
+		<result column="consequence" property="consequence" />
+		<result column="skill" property="skill" />
+		<result column="plan" property="plan" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+	</resultMap>
+
+    <resultMap id="UserDailyStatisticsByIdResultMap" type="com.lcy.autogenerator.entity.UserDailyStatistics">
+        <id column="ID" property="id" />
+        <result column="USER_ID" property="userId" />
+        <result column="TYPE" property="type" />
+        <result column="COUNT" property="count" />
+        <result column="COUNT2" property="count2" />
+        <result column="VALUE" property="value" />
+        <result column="DATE" property="date" />
+        <result column="PERIOD" property="period" />
+    </resultMap>
+
+    <select id="getTodayUserDailyStatisticsById" resultType="com.lcy.autogenerator.entity.UserDailyStatistics">
+        select *
+        from user_daily_statistics where TYPE = 14 and DATE = date_format(now(),'%Y-%m-%d') order by DATE DESC;
+    </select>
+
+    <select id="listByUserId" resultType="com.lcy.autogenerator.entity.Skillcard.BehaviorChainCard">
+        select * from behavior_chain_card where USER_ID = #{userId} order by DATE desc
+    </select>
+
+</mapper>
