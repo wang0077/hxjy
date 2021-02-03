@@ -16,6 +16,7 @@ public enum UserDailyStatisticsTypeEnum {
     LIFE_GOAL(12,"人生目标卡"),
     PROS_CONS(13,"利弊分析卡"),
     BEHAVIOR_CHAIN_CARD(14,"行为链分析卡"),
+    EMOTION_REGULATION_CARD(15,"情绪调节卡"),
     ACCEPT_CARD(16,"全然接收卡")
 	;
 
